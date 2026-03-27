@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Hoang | guns.lol style</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --accent: #ffffff;
+            --card-bg: rgba(10, 10, 10, 0.6);
+            --glow: rgba(255, 255, 255, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+
+        body {
+            background: url('https://raw.githubusercontent.com/LionHub-Pino/Sigmaboy/refs/heads/main/df6ca0704e45457aefd7b46d8da3a7aa.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Overlay mờ chuẩn guns.lol */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+            transition: 0.5s ease;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 5px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+        .avatar:hover { transform: scale(1.05); filter: drop-shadow(0 0 10px white); }
+
+        h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; text-transform: lowercase; }
+        .description { font-size: 0.8rem; opacity: 0.5; margin-bottom: 25px; letter-spacing: 1px; }
+
+        .links-container { display: flex; flex-direction: column; gap: 12px; }
+
+        .link-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .link-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.02);
+        }
+
+        .btn-donate {
+            background: #fff !important;
+            color: #000 !important;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        /* Khung Donate tối giản */
+        #donate-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+
+        .stk-display {
+            font-family: monospace;
+            font-size: 1.4rem;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            letter-spacing: 3px;
+        }
+
+        .qr-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            filter: grayscale(1) invert(1); /* Style âm bản cực chất */
+            transition: 0.3s;
+            margin-bottom: 15px;
+        }
+        .qr-img:hover { filter: grayscale(0) invert(0); }
+
+        .back-btn {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { opacity: 1; letter-spacing: 2px; }
+
+        /* Toast thông báo nhẹ */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            font-size: 0.8rem;
+            background: white;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast">copied to clipboard.</div>
+
+    <div class="profile-card" id="main-card">
+        <div id="profile-content">
+            <img src="https://raw.githubusercontent.com/LionHub-Pino/Sigmaboy/refs/heads/main/2a4d56f8ccc56b3b9f9d7f4740f996a2.jpg" alt="avatar" class="avatar">
+            <h1>thanh hoang</h1>
+            <p class="description">coder / @lionhub_pino / chill</p>
+
+            <div class="links-container">
+                <a href="https://github.com/LionHub-Pino" target="_blank" class="link-btn">github</a>
+                <a href="#" class="link-btn">projects</a>
+                <button class="link-btn btn-donate" onclick="showDonate()">donate</button>
+            </div>
+        </div>
+
+        <div id="donate-content">
+            <p style="font-size: 0.7rem; opacity: 0.5;">MB BANK / NGUYEN MINH SANG</p>
+            <div class="stk-display" id="stk-num" onclick="copySTK()">44221042010</div>
+            <img src="https://raw.githubusercontent.com/LionHub-Pino/Sigmaboy/refs/heads/main/1768998439420.png" alt="qr" class="qr-img">
+            <br>
+            <div class="back-btn" onclick="hideDonate()">[ go back ]</div>
+        </div>
+    </div>
+
+    <script>
+        function showDonate() {
+            document.getElementById('profile-content').style.display = 'none';
+            document.getElementById('donate-content').style.display = 'block';
+        }
+
+        function hideDonate() {
+            document.getElementById('profile-content').style.display = 'block';
+            document.getElementById('donate-content').style.display = 'none';
+        }
+
+        function copySTK() {
+            const stk = document.getElementById('stk-num').innerText;
+            navigator.clipboard.writeText(stk).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
